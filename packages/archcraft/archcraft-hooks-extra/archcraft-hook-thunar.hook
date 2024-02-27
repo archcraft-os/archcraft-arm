@@ -1,0 +1,12 @@
+## Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
+
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = thunar
+
+[Action]
+Description = Fixing thunar wallpaper module for openbox...
+When = PostTransaction
+Exec = /usr/bin/archcraft-hooks-extra fix-thunar

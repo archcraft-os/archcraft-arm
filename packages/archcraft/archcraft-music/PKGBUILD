@@ -1,0 +1,20 @@
+# Maintainer: Aditya Shakya <adi1090x@gmail.com>
+
+pkgname=archcraft-music
+pkgver=1.0
+pkgrel=0
+pkgdesc="Few copyright free songs for Archcraft"
+arch=('any')
+url="https://github.com/archcraft-os/archcraft-skeleton"
+license=('GPL3')
+options=(!strip !emptydirs)
+
+prepare() {
+	cp -af ../files/. "$srcdir"
+}
+
+package() {
+	local _musicdir="$pkgdir"/etc/skel/Music
+	mkdir -p "$_musicdir"
+	cp -r "$srcdir"/* "$_musicdir"
+}

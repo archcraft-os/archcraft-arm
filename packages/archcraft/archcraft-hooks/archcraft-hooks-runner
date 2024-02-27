@@ -1,0 +1,76 @@
+#!/bin/bash
+
+## Copyright (C) 2020 Aditya Shakya <adi1090x@gmail.com>
+##
+## Run `archcraft-hooks` related commands.
+
+fix_lsb_release() {
+    local file=/etc/lsb-release
+
+    if [[ -z "`grep "^DISTRIB_RELEASE=" $file`" ]] ; then
+        # add missing DISTRIB_RELEASE=
+        echo "DISTRIB_RELEASE=rolling" >> "$file"
+    fi
+    sed -i "$file" \
+        -e 's|^DISTRIB_ID=.*$|DISTRIB_ID=archcraft|' \
+        -e 's|^DISTRIB_RELEASE=.*$|DISTRIB_RELEASE=rolling|' \
+        -e 's|^DISTRIB_DESCRIPTION=.*$|DISTRIB_DESCRIPTION=\"Archcraft\"|'
+}
+
+fix_os_release() {
+    local file=/usr/lib/os-release
+
+    sed -i "$file" \
+        -e 's|^NAME=.*$|NAME=\"Archcraft\"|' \
+        -e 's|^PRETTY_NAME=.*$|PRETTY_NAME=\"Archcraft\"|' \
+        -e 's|^ID=.*$|ID=archarm|' \
+        -e 's|^ID_LIKE=.*$|ID_LIKE=arch|' \
+        -e 's|^BUILD_ID=.*$|BUILD_ID=rolling|' \
+        -e 's|^HOME_URL=.*$|HOME_URL=\"https://archcraft.io\"|' \
+        -e 's|^DOCUMENTATION_URL=.*$|DOCUMENTATION_URL=\"https://wiki.archcraft.io\"|' \
+        -e 's|^SUPPORT_URL=.*$|SUPPORT_URL=\"https://www.reddit.com/r/archcraft\"|' \
+        -e 's|^BUG_REPORT_URL=.*$|BUG_REPORT_URL=\"https://github.com/archcraft-os/archcraft/issues\"|' \
+        -e 's|^LOGO=.*$|LOGO=archcraft|'
+
+    if [ -z "$(grep "^ID_LIKE=" $file)" ] && [ -n "$(grep "^ID=" $file)" ] ; then
+        # add missing ID_LIKE=
+        sed -i $file -e '/^ID=/a \ID_LIKE=arch'
+    fi
+
+	# fix issue file
+    sed -i 's|Arch Linux|Archcraft|g' /etc/issue /usr/share/factory/etc/issue
+}
+
+fix_pixmaps() {
+	## Remove Arch Linux artworks
+	imgs=('archlinux-logo.png'
+		  'archlinux-logo.svg'
+		  'archlinux-logo-text.svg'
+		  'archlinux-logo-text-dark.svg'
+		  'archlinux.png'
+		  'archlinux.svg')
+	
+	for img in "${imgs[@]}"; do
+		if [[ -e /usr/share/pixmaps/"$img" ]]; then 
+			rm -rf /usr/share/pixmaps/"$img"
+		fi
+	done
+	
+	cp /usr/share/pixmaps/archcraft.png /usr/share/pixmaps/archlinux-logo.png
+}
+
+main() {
+    local hookname="$1"
+
+    case "$hookname" in
+        os-release)  fix_os_release ;;
+        lsb-release) fix_lsb_release ;;
+        fix-pixmaps) fix_pixmaps ;;
+        "")          fix_os_release
+                     fix_lsb_release
+                     fix_pixmaps
+                     ;;
+    esac
+}
+
+main "$@"

@@ -1,0 +1,14 @@
+## Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
+
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Path
+Target = usr/bin/*
+
+[Action]
+Description = Updating executables in /usr/bin...
+Depends = zsh
+When = PostTransaction
+Exec = /usr/bin/install -Dm644 /dev/null /var/cache/zsh/pacman

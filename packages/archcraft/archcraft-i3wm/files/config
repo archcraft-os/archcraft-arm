@@ -1,0 +1,326 @@
+## Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
+##
+## i3wm configuration for Archcraft
+##
+## i3 config file (v4)
+
+##-- Include Config Files ----------------------
+
+## Tilde expands to the user’s home directory:
+#include ~/.config/i3/01_theme.conf
+
+## Environment variables are expanded:
+#include $HOME/.config/i3/01_theme.conf
+
+## Wildcards are expanded:
+#include ~/.config/i3/config.d/*.conf
+
+## Command substitution:
+#include ~/.config/i3/`hostname`.conf
+
+## i3 changes the working directory while parsing a config file
+## so that relative paths are interpreted relative to the directory
+## of the config file that contains the path:
+#include 01_theme.conf
+
+## To list all loaded configuration files, run `i3 --moreversion`
+
+#------
+
+## Load i3 config files
+include ~/.config/i3/config.d/*.conf
+
+## Enable/Disable i3 bar
+#include ~/.config/i3/i3status/statusbar.conf
+
+##-- Mod Keys ----------------------------------
+set $MOD Mod4
+set $ALT Mod1
+
+##-- General Settings --------------------------
+
+## Floating Modifier
+##
+## To move floating windows with your mouse, you can either grab their titlebar 
+## or configure the so-called floating modifier which you can then press and click
+## anywhere in the window itself to move it.
+##
+## When holding the floating modifier, you can resize a floating window by pressing 
+## the right mouse button on it and moving around while holding it.
+## If you hold the shift button as well, the resize will be proportional
+## (the aspect ratio will be preserved).
+floating_modifier $MOD
+
+#------
+
+## Orientation for new workspaces
+##
+## New workspaces get a reasonable default orientation: Wide-screen monitors 
+## (anything wider than high) get horizontal orientation, rotated monitors 
+## (anything higher than wide) get vertical orientation.
+##
+## Syntax: default_orientation horizontal|vertical|auto
+default_orientation auto
+
+#------
+
+## Layout mode for new containers
+##
+## This option determines in which mode new containers on workspace level will start.
+##
+## Syntax: workspace_layout default|stacking|tabbed
+workspace_layout default
+
+#------
+
+## Window title alignment
+##
+## This option determines the window title’s text alignment. Default is left
+##
+## Syntax: title_align left|center|right
+title_align center
+
+## Print all window titles in format of 'class | title'
+for_window [class=".*"] title_format "%class | %title"
+
+## Enable window icons for all windows
+for_window [all] title_window_icon off
+
+## Enable window icons for all windows with extra horizontal padding
+#for_window [all] title_window_icon padding 5px
+
+#------
+
+## Default border style for new windows
+##
+## This option determines which border style new windows will have. The default is `normal`.
+## Note that `default_floating_border` applies only to windows which are starting out
+## as floating windows, e.g., dialog windows, but not windows that are floated later on.
+##
+## Setting border style to `pixel` eliminates title bars. The border style `normal` 
+## allows you to adjust edge border width while keeping your title bar.
+##
+## Syntax: 
+#default_border normal|none|pixel
+#default_border normal|pixel <px>
+#default_floating_border normal|none|pixel
+#default_floating_border normal|pixel <px>
+#default_border pixel 2
+#default_floating_border pixel 2
+
+#------
+
+## Hiding borders adjacent to the screen edges
+##
+## You can hide container borders adjacent to the screen edges using `hide_edge_borders`
+## (the default is none). Hiding borders is useful if you are using scrollbars, 
+## or do not want to waste even two pixels in displayspace.
+##
+## The `smart` setting hides borders on workspaces with only one window visible, 
+## but keeps them on workspaces with multiple windows visible.
+##
+## The `smart_no_gaps` setting hides edge-specific borders of a container if the
+## container is the only container on its workspace and the gaps to the screen edge are 0.
+##
+## Syntax: hide_edge_borders none|vertical|horizontal|both|smart|smart_no_gaps
+hide_edge_borders none
+
+#------
+
+## Smart borders
+##
+## Smart borders will draw borders on windows only if there is more than one window 
+## in a workspace. This feature can also be enabled only if the gap size between 
+## window and screen edge is 0.
+##
+## Syntax: smart_borders on|off|no_gaps
+#smart_borders on
+
+#------
+
+## Don’t focus window upon opening
+##
+## When a new window appears, it will be focused. The `no_focus` directive allows 
+## preventing this from happening and must be used in combination with [command_criteria].
+##
+## Syntax: no_focus <criteria>
+#no_focus [window_role="pop-up"]
+
+#------
+
+## Automatically putting workspaces on specific screens
+##
+## If you assign clients to workspaces, it might be handy to put the workspaces on 
+## specific screens. Also, the assignment of workspaces to screens will determine 
+## which workspace i3 uses for a new screen when adding screens or when starting 
+## (e.g., by default it will use 1 for the first screen, 2 for the second screen and so on).
+##
+## Syntax: workspace <workspace> output <output1> [output2]…
+##
+## The `output` is the name of the RandR output you attach your screen to. 
+## On a laptop, you might have VGA1 and LVDS1 as output names. 
+## You can see the available outputs by running `xrandr --current`
+#workspace 1 output LVDS1
+#workspace 2 output primary
+#workspace 5 output VGA1 LVDS1
+#workspace "2: vim" output VGA1
+
+#------
+
+## Interprocess communication
+##
+## i3 uses Unix sockets to provide an IPC interface. This allows third-party programs
+## to get information from i3, such as the current workspaces (to display a workspace bar), and to control i3.
+##
+## You can override the default path through the environment-variable `I3SOCK` 
+## or by specifying the `ipc-socket` directive.This is discouraged, though, 
+## since i3 does the right thing by default. If you decide to change it, 
+## it is strongly recommended to set this to a location in your home directory
+## so that no other user can create that directory.
+#ipc-socket ~/.i3/i3-ipc.sock
+
+#------
+
+## Focus follows mouse
+##
+## By default, window focus follows your mouse movements as the mouse crosses window borders.
+## However, if you have a setup where your mouse usually is in your way 
+## (like a touchpad on your laptop which you do not want to disable completely),
+## you might want to disable `focus follows mouse` and control focus only by using your keyboard.
+## The mouse will still be useful inside the currently active window (for example to click on links in your browser window).
+##
+## Syntax: focus_follows_mouse yes|no
+focus_follows_mouse yes
+
+#------
+
+## Mouse warping
+##
+## By default, when switching focus to a window on a different output 
+## (e.g. focusing a window on workspace 3 on output VGA-1, coming from workspace 2 on LVDS-1),
+## the mouse cursor is warped to the center of that window.
+##
+## With the `mouse_warping` option, you can control when the mouse cursor should be warped. 
+## `none` disables warping entirely, whereas `output` is the default behavior described above.
+##
+## Syntax: mouse_warping output|none
+mouse_warping none
+
+#------
+
+## Popups during fullscreen mode
+##
+## When you are in fullscreen mode, some applications still open popup windows (take Xpdf for example).
+## This is because these applications might not be aware that they are in fullscreen mode 
+## (they do not check the corresponding hint).
+## There are three things which are possible to do in this situation.
+##
+## Syntax: popup_during_fullscreen smart|ignore|leave_fullscreen
+popup_during_fullscreen smart
+
+#------
+
+## Focus wrapping
+##
+## By default, when in a container with several windows or child containers,
+## the opposite window will be focused when trying to move the focus over the edge of
+## a container (and there are no other containers in that direction) — the focus wraps.
+##
+## Syntax: focus_wrapping yes|no|force|workspace
+# Disable focus wrapping
+#focus_wrapping no
+# Force focus wrapping
+#focus_wrapping force
+
+#------
+
+## Forcing Xinerama
+##
+## As explained in-depth in https://i3wm.org/docs/multi-monitor.html, some X11 video
+## drivers (especially the nVidia binary driver) only provide support for Xinerama 
+## instead of RandR. In such a situation, i3 must be told to use the inferior Xinerama
+## API explicitly and therefore don’t provide support for reconfiguring your screens 
+## on the fly (they are read only once on startup and that’s it).
+##
+## Syntax: force_xinerama yes|no
+#force_xinerama yes
+
+#------
+
+## Automatic back-and-forth when switching to the current workspace
+##
+## This configuration directive enables automatic `workspace back_and_forth` 
+## when switching to the workspace that is currently focused.
+##
+## Syntax: workspace_auto_back_and_forth yes|no
+workspace_auto_back_and_forth yes
+
+#------
+
+## Delaying urgency hint reset on workspace change
+##
+## If an application on another workspace sets an urgency hint, switching to this 
+## workspace might lead to immediate focus of the application, which also means the 
+## window decoration color would be immediately reset to `client.focused`. 
+## This might make it unnecessarily hard to tell which window originally raised the event.
+##
+## In order to prevent this, you can tell i3 to delay resetting the urgency state by
+## a certain time using the `force_display_urgency_hint` directive.
+## Setting the value to 0 disables this feature. The default is 500ms.
+##
+## Syntax: force_display_urgency_hint <timeout> ms
+force_display_urgency_hint 500 ms
+
+#------
+
+## Focus on window activation
+##
+## If a window is activated, e.g., via `google-chrome www.google.com`, it may request to take focus.
+## Since this might not be preferable, different reactions can be configured.
+##
+## Note that this might not affect windows that are being opened. 
+## To prevent new windows from being focused.
+##
+## Syntax: focus_on_window_activation smart|urgent|focus|none
+focus_on_window_activation smart
+
+#------
+
+## Drawing marks on window decoration
+##
+## If activated, marks on windows are drawn in their window decoration. 
+## However, any mark starting with an underscore in its name (_) will not be drawn
+## even if this option is activated.
+##
+## The default for this option is yes.
+##
+## Syntax: show_marks yes|no
+show_marks yes
+
+#------
+
+## Tiling drag
+##
+## You can configure how to initiate the tiling drag feature.
+##
+## Syntax:
+#tiling_drag off
+#tiling_drag modifier|titlebar [modifier|titlebar]
+tiling_drag modifier titlebar
+
+##-- Autostart ---------------------------------
+
+## Automatically starting applications on i3 startup
+##
+## By using the `exec` keyword outside a keybinding, you can configure which commands
+## will be performed by i3 on initial startup. `exec` commands will not run when 
+## restarting i3, if you need a command to run also when restarting i3 you should
+## use the `exec_always` keyword. These commands will be run in order.
+##
+## Syntax:
+#exec [--no-startup-id] <command>
+#exec_always [--no-startup-id] <command>
+exec_always --no-startup-id ~/.config/i3/scripts/i3_autostart
+
+## The --no-startup-id parameter disables startup-notification support for this particular exec command.
+## With startup-notification, i3 can make sure that a window appears on the workspace on which you used the exec command.

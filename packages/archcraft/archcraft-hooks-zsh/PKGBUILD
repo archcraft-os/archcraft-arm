@@ -1,0 +1,18 @@
+# Maintainer: Aditya Shakya <adi1090x@gmail.com>
+
+pkgname="archcraft-hooks-zsh"
+pkgver=1.0
+pkgrel=0
+pkgdesc='ZSH hook for Archcraft'
+arch=('any')
+url="https://github.com/archcraft-os/core-packages"
+license=('GPL3')
+
+source=('archcraft-hook-zsh.hook')
+sha512sums=('439ad01f194deed08d6348430c791d767ddf6cc423153c495593c56eb6284dcb94b97e3ad2eb0f0a4663c05e495d8752ba79eeed8a08d92e30228acf7f10173c')
+
+package() {
+  local hooks="$pkgdir"/usr/share/libalpm/hooks
+
+  install -Dm 644 archcraft-hook-zsh.hook "$hooks"/archcraft-hook-zsh.hook
+}

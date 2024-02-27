@@ -1,0 +1,53 @@
+# Maintainer: Aditya Shakya <adi1090x@gmail.com>
+
+pkgname="archcraft-hooks"
+pkgver=1.0
+pkgrel=0
+pkgdesc='Pacman hooks for Archcraft filesystem'
+arch=('any')
+url="https://github.com/archcraft-os/core-packages"
+license=('GPL3')
+source=(
+		'archcraft-hooks.hook'
+		'archcraft-os-release.hook'
+		'archcraft-lsb-release.hook'
+		'archcraft-pixmaps.hook'
+		'archcraft-hooks-runner'
+		'archcraft.png'
+		'archcraft.svg'
+		'archcraft-logo.png'
+		'archcraft-logo.svg'
+		'archcraft-user.png'
+		'archcraft-user.svg'
+)
+sha512sums=('7eb7f3928e0941ea4b43dc41da0c1d9d0426532912de5bc4a6427241b8f2c901d86ac0f63ea8463337bca6447350dee10ab2d0161eacddd23cf2a2f7438f8b6a'
+            '99b3e89fcdf6c9f51e02a655ae2f7a1fe7296f2d95b900ff187b63d856649f64104928c0443a37999f5a4c2b25e34057402c5d7ac929267599b63e5a79bc076d'
+            '3df9c3dff31c065c0c805dd336f28b67720103fd9e4640c931b9f0861b35dc6fe97650821377d8f6e584fd07a5f31af86ed3aa415061cec111bbc31fbd46fa39'
+            '68bb2ae116ffbe57af27fee6db3b4d60eba7b13c336d166450d4d562807757cffe161b1efc919f71ebb45bff2bb9d81417670619bf5c589dacf5f91759a8c023'
+            '9d66ff42b1172feb0c91aec2102d8a7b930d1abf5096366fc4fe96961cdcf5c4c954ede29fdf6545dc6140f79d0dd9458ab2bf2744be871ceefd28069f723166'
+            '34ca68054ae537fda636a4613489ca69a88f6b2c2e0e440c535ada47ebed4015f7b751232e30ef5c2c0173a4db7ae0f7e208bcff30d21ca6f3ba6821229be755'
+            '44982dbe314b0f5648ff7bb02bfe05f7edbd1d8a4fd3b3bc580c5f3f9d93bacf5822e5f8e3c24478c17f1004a6fae06339c87fd411e9eebf53e6ee8361e85b2f'
+            'c860b21db8f7574bca349d50e8f0cc53cb92ee10bb69982c13705e031649f64cb86e13e66a229948b7f0f4ff415dc096a35fc2373c63fd0ebd4c85835333710a'
+            '248d2fb8dbfa43f4548734e0a25765e0dbc2deefdde6f506c03a3f5df92fc4936448d021a7d9e84779497eae6acdc1c8f6ba43797b307eac5b74e8362b0d3a3e'
+            'b7040fac592400a2ea276f39e09df6845f5ca056174078d8f99dc8a62393ca51176ff92521e6a95031387829681620ce62b1a1a02b48a6d15116e8a62dcd660d'
+            '3d4d3cba0d7bd2972970c4a1010852cb1c77b7a48b2fe854451c029563a631b455c8c366d1d46e967cfcd7c56962ab527c795eb09bc0527bc82f493557df210e')
+
+package() {
+	local hooks="$pkgdir"/usr/share/libalpm/hooks
+	local pixmaps="$pkgdir"/usr/share/pixmaps
+	local bin="$pkgdir"/usr/bin
+	
+	install -Dm 644 archcraft-hooks.hook           	"$hooks"/archcraft-hooks.hook
+	install -Dm 644 archcraft-lsb-release.hook      "$hooks"/archcraft-lsb-release.hook
+	install -Dm 644 archcraft-os-release.hook       "$hooks"/archcraft-os-release.hook
+	install -Dm 644 archcraft-pixmaps.hook  		"$hooks"/archcraft-pixmaps.hook
+			    
+	install -Dm 755 archcraft-hooks-runner         	"$bin"/archcraft-hooks-runner
+			    
+	install -Dm 644 archcraft.png       			"$pixmaps"/archcraft.png
+	install -Dm 644 archcraft.svg       			"$pixmaps"/archcraft.svg
+	install -Dm 644 archcraft-logo.png       		"$pixmaps"/archcraft-logo.png
+	install -Dm 644 archcraft-logo.svg       		"$pixmaps"/archcraft-logo.svg
+	install -Dm 644 archcraft-user.png       		"$pixmaps"/archcraft-user.png
+	install -Dm 644 archcraft-user.svg       		"$pixmaps"/archcraft-user.svg
+}

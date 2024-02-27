@@ -1,0 +1,53 @@
+#!/bin/bash
+
+## Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
+##
+## Perform various operations for Archcraft
+
+fix_openbox() {
+	## Set black background for openbox
+	sed -i -e 's#test -z $BG || $BG -solid .*#test -z $BG || $BG -solid "\#000000"#g' /usr/lib/openbox/openbox-autostart
+	rm -rf /usr/share/xsessions/openbox-kde.desktop
+}
+
+fix_thunar() {
+	## Remove thunar wallpaper plugin
+	twplug='/usr/lib/thunarx-3/thunar-wallpaper-plugin.so'
+	if [[ -e "$twplug" ]]; then
+		rm -rf "$twplug"
+	fi
+}
+
+fix_nmd() {
+	## Create nmd script for bspwm session
+	cp -rf /usr/bin/networkmanager_dmenu /usr/bin/nmd && sed -i -e 's/config.ini/nmd.ini/g' /usr/bin/nmd
+}
+
+fix_i3wm() {
+	dfile='/usr/share/xsessions/i3-with-shmlog.desktop'
+	if [[ -e "$dfile" ]]; then
+		rm -rf "$dfile"
+	fi
+}
+
+fix_xfce_notify() {
+	dbus_file='/usr/share/dbus-1/services/org.xfce.xfce4-notifyd.Notifications.service'
+	if [[ -e "$dbus_file" ]]; then
+		sed -i -e 's/Name=org.freedesktop.Notifications/Name=org.freedesktop.NotificationsNone/g' "$dbus_file"
+	fi
+}
+
+main() {
+    local hookname="$1"
+
+    case "$hookname" in
+        fix-openbox)  		fix_openbox ;;
+        fix-thunar)   		fix_thunar ;;
+        fix-i3wm)     		fix_i3wm ;;
+        fix-nmd)      		fix_nmd ;;
+        fix-xfce-notify)    fix_xfce_notify ;;
+        "")           		echo "Nothing to do!";;
+    esac
+}
+
+main "$@"

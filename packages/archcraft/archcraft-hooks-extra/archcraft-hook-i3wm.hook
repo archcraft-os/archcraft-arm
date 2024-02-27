@@ -1,0 +1,12 @@
+## Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
+
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = i3-wm
+
+[Action]
+Description = Deleting i3-with-shmlog.desktop file...
+When = PostTransaction
+Exec = /usr/bin/archcraft-hooks-extra fix_i3wm

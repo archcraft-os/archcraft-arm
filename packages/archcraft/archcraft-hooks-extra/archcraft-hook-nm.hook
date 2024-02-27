@@ -1,0 +1,12 @@
+## Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
+
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = networkmanager-dmenu-git
+
+[Action]
+Description = Creating network manager script for bspwm...
+When = PostTransaction
+Exec = /usr/bin/archcraft-hooks-extra fix-nmd

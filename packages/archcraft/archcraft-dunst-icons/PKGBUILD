@@ -1,0 +1,18 @@
+# Maintainer: Aditya Shakya <adi1090x@gmail.com>
+
+pkgname=archcraft-dunst-icons
+pkgver=1.0
+pkgrel=0
+pkgdesc="Icons used by dunst in Archcraft"
+arch=('any')
+url="https://github.com/archcraft-os/archcraft-packages"
+license=('GPL3')
+options=(!strip !emptydirs)
+
+prepare() {
+	cp -af ../files/. "$srcdir"
+}
+
+package() {
+	(find dunst -type f -exec install -Dm 644 "{}" "$pkgdir/usr/share/archcraft/icons/{}" \;)
+}

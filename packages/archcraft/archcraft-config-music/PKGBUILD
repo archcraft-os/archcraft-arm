@@ -1,0 +1,25 @@
+# Maintainer: Aditya Shakya <adi1090x@gmail.com>
+
+pkgname=archcraft-config-music
+pkgver=1.0
+pkgrel=0
+pkgdesc="Music (mpd and ncmpcpp) config for Archcraft"
+arch=('any')
+url="https://github.com/archcraft-os/archcraft-skeleton"
+license=('GPL3')
+options=(!strip)
+
+prepare() {
+	cp -af ../files/. "$srcdir"
+}
+
+package() {
+	local _cfgdir="$pkgdir"/etc/skel
+	mkdir -p "$_cfgdir"
+
+	cp -r "$srcdir"/.mpd      "$_cfgdir"
+	cp -r "$srcdir"/.ncmpcpp  "$_cfgdir"
+	chmod +x "$_cfgdir"/.ncmpcpp/scripts/{album-art,ncmpcpp-art}
+
+	install -Dm 755 kunst  "$pkgdir"/usr/bin/kunst
+}

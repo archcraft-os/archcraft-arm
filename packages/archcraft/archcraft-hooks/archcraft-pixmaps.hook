@@ -1,0 +1,12 @@
+## Copyright (C) 2020 Aditya Shakya <adi1090x@gmail.com>
+
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = filesystem
+
+[Action]
+Description = Updating Archcraft Pixmaps...
+When = PostTransaction
+Exec = /usr/bin/archcraft-hooks-runner fix-pixmaps

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+## Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
+##
+## About Archcraft
+
+## Get ISO Version
+if [[ -e '/version' ]]; then
+	version="v`cat /version | cut -d'.' -f1`.`cat /version | cut -d '.' -f2`"
+else
+	version='Rolling Release'
+fi
+
+yad --title='About Archcraft' --window-icon='archcraft-cyan' \
+	--about \
+	--pname='Archcraft ARM' \
+	--pversion="$version" \
+	--image='distributor-logo-archcraft' \
+	--comments="Yet another minimal linux distribution, Based on Arch Linux." \
+	--copyright="Copyright 2020-`date +'%Y'`, Aditya Shakya <adi1090x@gmail.com>" \
+	--license='GPL3' \
+	--website='https://archcraft.io' \
+	--website-label='archcraft.io' \
+	--authors="Aditya Shakya <adi1090x@gmail.com>"

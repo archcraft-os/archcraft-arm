@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=About Archcraft
+Comment=Details regarding Archcraft and credits
+Exec=archcraft-about
+Icon=archcraft-cyan
+Type=Application
+Categories=System;

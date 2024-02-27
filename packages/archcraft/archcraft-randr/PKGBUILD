@@ -1,0 +1,24 @@
+# Maintainer: Aditya Shakya <adi1090x@gmail.com>
+
+pkgname=archcraft-randr
+pkgver=1.0
+pkgrel=0
+pkgdesc="Rofi frontend (with xrandr backend) to manage monitors"
+arch=('any')
+url="https://github.com/archcraft-os/archcraft-packages"
+license=('GPL3')
+options=(!strip !emptydirs)
+
+source=(archcraft-arandr.desktop
+		archcraft-randr
+		archcraft-randr.rasi)
+
+sha256sums=('7ca8b423ebb9b4bdc466f525990b6b712eea0147e7e9930fccee977c004fe1e8'
+            'daf6a8ab4059c4ed6b56c3e257bed76c66395003f22a43674198b66ae2290971'
+            '7f629b32ba784f5105ee8a9b7edd6817da08ce7797e77f261be8fa5f7ea7feb1')
+
+package() {
+	install -Dm 755 archcraft-randr   			"$pkgdir"/usr/bin/archcraft-randr
+	install -Dm 644 archcraft-arandr.desktop	"$pkgdir"/usr/share/applications/archcraft-arandr.desktop
+	install -Dm 644 archcraft-randr.rasi   		"$pkgdir"/usr/share/archcraft/randr/rofi/archcraft-randr.rasi
+}

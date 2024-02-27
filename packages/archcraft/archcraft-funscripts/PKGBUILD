@@ -1,0 +1,18 @@
+# Maintainer: Aditya Shakya <adi1090x@gmail.com>
+
+pkgname=archcraft-funscripts
+pkgver=1.0
+pkgrel=0
+pkgdesc="Fun Scripts for Archcraft"
+arch=('any')
+url="https://github.com/archcraft-os/archcraft-packages"
+license=('GPL3')
+options=(!strip !emptydirs)
+
+prepare() {
+	cp -af ../files/. "$srcdir"
+}
+
+package() {
+	(find scripts -type f -exec install -Dm 755 "{}" "$pkgdir/usr/share/archcraft/{}" \;)
+}
