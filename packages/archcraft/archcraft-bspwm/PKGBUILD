@@ -5,7 +5,7 @@ pkgver=1.0
 pkgrel=0
 pkgdesc="Bspwm Configurations for Archcraft"
 arch=('any')
-url="https://github.com/archcraft-os/archcraft-bspwm"
+url="https://github.com/archcraft-os/archcraft-arm"
 license=('GPL3')
 depends=('bspwm' 'sxhkd' 'feh' 'xsettingsd'
 		'pulsemixer' 'light' 'polybar' 'rofi' 'dunst'

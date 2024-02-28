@@ -5,7 +5,7 @@ pkgver=1.0
 pkgrel=0
 pkgdesc='Pacman hooks for Archcraft filesystem'
 arch=('any')
-url="https://github.com/archcraft-os/core-packages"
+url="https://github.com/archcraft-os/archcraft-arm"
 license=('GPL3')
 source=(
 		'archcraft-hooks.hook'

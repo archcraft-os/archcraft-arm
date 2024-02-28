@@ -1,2 +1,4 @@
 cleanup.sh
 push.sh
+packages/archcraft/archcraft-omz/oh-my-zsh
+packages/archcraft/archcraft-vim/vimrc
