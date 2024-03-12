@@ -1,0 +1,1 @@
+root=/dev/mmcblk0p2 rw rootwait console=serial0,115200 console=tty1 fsck.repair=yes quiet splash loglevel=3 udev.log_level=3 vt.global_cursor_default=0
