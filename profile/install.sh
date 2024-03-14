@@ -181,10 +181,22 @@ source_packages_file() {
 	fi
 }
 
-## Install packages
-install_packages() {
+## Install all packages at once
+install_packages_at_once() {
 	source_packages_file
 	show_msg -b "\n[*] Installing required packages..."
+
+	show_msg -o "[+] The following packages are going to be installed..."
+	echo -e "${_packages[@]}\n"
+	pacman -S --needed --noconfirm "${_packages[@]}"
+	check_error_status 'install' 'some' 'packages'
+}
+
+## Install one package at a time
+install_packages_one_by_one() {
+	source_packages_file
+	show_msg -b "\n[*] Installing required packages..."
+
 	for _pkg in "${_packages[@]}"; do
 		show_msg -o "\n[+] Installing package : $_pkg"
 		pacman -S "$_pkg" --needed --noconfirm
@@ -193,7 +205,7 @@ install_packages() {
 			_failed_to_install+=("$_pkg")
 		fi
 	done
-
+	
 	# List failed packages
 	if [[ -n "${_failed_to_install}" ]]; then
 		echo
@@ -331,8 +343,10 @@ perform_post_installation() {
 perform_misc_operations() {
 	show_msg -b "\n[*] Performing various operations..."
 
-	show_msg -o "[+] Adding 'plymouth' hook in mkinitcpio config file..."
-	sed -i -e 's/udev/udev plymouth/g' /etc/mkinitcpio.conf
+	if [[ `uname -m` == "arm"* ]]; then
+		show_msg -o "[+] Adding 'plymouth' hook in mkinitcpio config file..."
+		sed -i -e 's/udev/udev plymouth/g' /etc/mkinitcpio.conf
+	fi
 
 	show_msg -o "[+] Regenerating initrd image..."
 	mkinitcpio -P
@@ -373,7 +387,7 @@ finalization() {
 
 	# Delete current user
 	read -p ${CYAN}"[?] Do you want to delete the default user 'alarm' (y/n) : "${WHITE}
-	if [[ "$REPLY" == 'y' ]]; then
+	if [[ "$REPLY" == 'y' || "$REPLY" == 'Y' ]]; then
 		show_msg -o "[-] Deleting default user ..."
 		userdel -f -r alarm
 	else
@@ -397,7 +411,8 @@ requirements
 banner
 initialize_keyring
 upgrade_system
-install_packages
+#install_packages_at_once
+install_packages_one_by_one
 manage_services
 install_sys_config_files
 install_skeleton_files
