@@ -2,7 +2,7 @@
 
 pkgname="archcraft-hooks-extra"
 pkgver=1.0
-pkgrel=0
+pkgrel=1
 pkgdesc='Extra pacman hooks for Archcraft'
 arch=('any')
 url="https://github.com/archcraft-os/archcraft-arm"
@@ -15,7 +15,7 @@ source=(
 		'archcraft-hook-xfce-notifyd.hook'
 		'archcraft-hooks-extra'
 )
-sha512sums=('749c38c25989a0db6b756507fe47b7ed2a954cafa3e3cf3cbb40f0c0e55123b3ccd82eaa0e743032fbe338461b0f6bfc6863a0b2216cced055e1726200b7e0fc'
+sha512sums=('b416839e72e28609311e8b19ac0898d2a8e768b6d03b399643fa8565811012296cdfacd06a93e736e115c673664cf8c5cfb3bafbc337e9aeb74f70a7f6ab327b'
             '3802f5d1316198e0bea79f57413970219844a86f1374e75cb2b587b92b67b49c8ef4cee6363464970e4fadaf654a5e030d6cc46f6f3c82f52920632dafa74a7b'
             '2b172378ed982727585c463c781cec49adf84d88ee99650ba4bd21c8d70719fc711b15f26961682b56640ce2fd31e84e37c65ad20e90b8492acbca3e4a837e27'
             '436ac76704bd2cabb9bcb330c6038ed0f1796dc38953e54198928214cd99d57fdbc09e52488aa5656a6dc4c418b16dccb175357c7f4d9d173301bfc69fd5722a'
